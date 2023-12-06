@@ -1,7 +1,7 @@
 package com.example.firstapp.Repository.Model;
 
 
-import com.example.firstapp.Entity.Model;
+import com.example.firstapp.Entity.Modeles;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
@@ -11,10 +11,10 @@ public class ModelRepositoryImp implements ModelRepositoryCustom{
     @PersistenceContext
     private EntityManager entityManager;
     @Transactional
-    public Model getModelByNom(String nom){
+    public Modeles getModelByNom(String nom){
         Query query=entityManager.createNativeQuery("SELECT m.* FROM Model m"+
-                "WHERE m.nom LIKE ?",Model.class);
+                "WHERE m.nom LIKE ?", Modeles.class);
         query.setParameter(1,nom+"%");
-        return (Model) query.getSingleResult();
+        return (Modeles) query.getSingleResult();
     }
 }

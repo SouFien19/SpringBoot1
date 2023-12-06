@@ -1,5 +1,6 @@
 package com.example.firstapp.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -84,7 +85,8 @@ public class Client {
     private String adresse;
 
 
-    @OneToMany(mappedBy = "client")
+    @JsonIgnore
+    @OneToMany(mappedBy = "client", cascade = CascadeType.REMOVE)
     private List<Location> locations;
 
 

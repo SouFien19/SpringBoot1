@@ -1,22 +1,34 @@
 package com.example.firstapp.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
-import java.util.Date;
+
+import java.time.LocalDate;
 import java.util.List;
 @Entity
 public class Voiture {
-    public Voiture(Long id, String serie, Date date_Mise_En_Marche, String model, List<Location> locations) {
-        this.id = id;
-        Serie = serie;
-        this.date_Mise_En_Marche = date_Mise_En_Marche;
-        Model = model;
-        this.locations = locations;
-    }
 
-    public Voiture() {
 
-    }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name="Serie")
+    private String Serie;
+
+    @Column( name = "date_Mise_En_Marche")
+    private LocalDate date_Mise_En_Marche;
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "model_id")
+    private Modeles Model;
+
+    @JsonIgnore
+    @OneToMany()
+    private List<Location> locations;
 
     public Long getId() {
         return id;
@@ -27,62 +39,36 @@ public class Voiture {
     }
 
     public String getSerie() {
-
         return Serie;
     }
 
     public void setSerie(String serie) {
-
         Serie = serie;
     }
 
-    public Date getDate_Mise_En_Marche() {
-
+    public LocalDate getDate_Mise_En_Marche() {
         return date_Mise_En_Marche;
     }
 
-    public void setDate_Mise_En_Marche(Date date_Mise_En_Marche) {
+    public void setDate_Mise_En_Marche(LocalDate date_Mise_En_Marche) {
         this.date_Mise_En_Marche = date_Mise_En_Marche;
     }
 
-    public String getModel() {
+    public Modeles getModel() {
         return Model;
     }
 
-    public void setModel(String model) {
+    public void setModel(Modeles model) {
         Model = model;
     }
-
-    public Voiture(Long id, String serie, Date date_Mise_En_Marche, String model) {
-        this.id = id;
-        Serie = serie;
-        this.date_Mise_En_Marche = date_Mise_En_Marche;
-        Model = model;
-    }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name="Serie")
-    private String Serie;
-
-    @Column( name = "date_Mise_En_Marche")
-    private Date date_Mise_En_Marche;
-
-    @Column(name="Model")
-    private String Model;
-
-    @OneToMany(mappedBy = "voiture")
-    private List<Location> locations;
 
     public List<Location> getLocations() {
-
         return locations;
     }
 
     public void setLocations(List<Location> locations) {
-
         this.locations = locations;
     }
 }
+
+

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Update Voiture</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css">
+    <link rel="stylesheet" href="your-custom-styles.css">
+
+    <style>
+        body {
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+        }
+        .containers {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            margin-top: 50px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .navbar {
+            background-color: #007BFF;
+        }
+        .navbar .navbar-brand {
+            color: #fff;
+            font-weight: bold;
+        }
+        .navbar .navbar-nav {
+            margin-left: auto;
+        }
+        .navbar .navbar-nav .nav-link {
+            color: #fff;
+            font-weight: bold;
+        }
+        .navbar .navbar-nav .nav-link i {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="/">Update Voiture</a>
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="/voitures/listVoitures">
+                <i class="fas fa-list"></i> Liste Voitures
+            </a>
+            <a class="nav-link" href="/locations/liste_locations">
+                <i class="fas fa-list"></i> Liste Locations
+            </a>
+            <a class="nav-link" href="/listClients">
+                <i class="fas fa-list"></i> Liste Clients
+            </a>
+        </li>
+    </ul>
+</nav>
+<div class="containers my-5">
+    <div class="card">
+        <div class="card-body">
+            <div class="col-md-10">
+                <form th:action="@{'/voitures/update/' + ${voiture.id}}" th:object="${voiture}" method="post" class="needs-validation" novalidate>
+                    <div class="form-group">
+                        <label for="modeles">Model:</label>
+                        <input type="text" class="form-control" id="modeles" th:field="*{modeles}" required>
+                        <div class="invalid-feedback">Please enter the modeles.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="serie">Serie:</label>
+                        <input type="text" class="form-control" id="serie" th:field="*{serie}" required>
+                        <div class="invalid-feedback">Please enter the serie.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="date_Mise_En_Marche">Date Mise En Marche:</label>
+                        <input type="date" class="form-control" id="date_Mise_En_Marche" th:field="*{date_Mise_En_Marche}" required>
+                        <div class="invalid-feedback">Please choose a valid date.</div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update Voiture</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

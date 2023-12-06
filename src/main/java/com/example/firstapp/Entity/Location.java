@@ -1,8 +1,11 @@
 package com.example.firstapp.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+
 @Entity
 public class Location {
 
@@ -10,7 +13,7 @@ public class Location {
 
     }
 
-    public Location(Long id, Date date_debut, Date date_retour, int prix_jour, int prix, Client client, Voiture voiture) {
+    public Location(Long id, LocalDate date_debut, LocalDate date_retour, int prix_jour, int prix, Client client, Voiture voiture) {
         this.id = id;
         this.date_debut = date_debut;
         this.date_retour = date_retour;
@@ -28,19 +31,19 @@ public class Location {
         this.id = id;
     }
 
-    public Date getDate_debut() {
+    public LocalDate getDate_debut() {
         return date_debut;
     }
 
-    public void setDate_debut(Date date_debut) {
+    public void setDate_debut(LocalDate date_debut) {
         this.date_debut = date_debut;
     }
 
-    public Date getDate_retour() {
+    public LocalDate getDate_retour() {
         return date_retour;
     }
 
-    public void setDate_retour(Date date_retour) {
+    public void setDate_retour(LocalDate date_retour) {
         this.date_retour = date_retour;
     }
 
@@ -60,7 +63,7 @@ public class Location {
         this.prix = prix;
     }
 
-    public Location(Long id, Date date_debut, Date date_retour, int prix_jour, int prix) {
+    public Location(Long id, LocalDate date_debut, LocalDate date_retour, int prix_jour, int prix) {
         this.id = id;
         this.date_debut = date_debut;
         this.date_retour = date_retour;
@@ -75,21 +78,19 @@ public class Location {
 
 
 
-
-
-
-
     @Column(name = "date_debut")
-    private Date date_debut;
+    private LocalDate date_debut;
 
     @Column(name = "date_retour")
-    private Date date_retour;
+    private LocalDate date_retour;
 
     @Column(name = "prix_jour")
     private int prix_jour;
 
     @Column(name = "prix")
     private int prix;
+
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
@@ -102,6 +103,8 @@ public class Location {
     public void setClient(Client client) {
         this.client = client;
     }
+
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "voiture_id")
     private Voiture voiture;
@@ -112,5 +115,11 @@ public class Location {
 
     public void setVoiture(Voiture voiture) {
         this.voiture = voiture;
+    }
+    public long getDurationInDays() {
+        if (date_debut != null && date_retour != null) {
+            return ChronoUnit.DAYS.between(date_debut, date_retour);
+        }
+        return 0; // Handle the case where dates are null
     }
 }

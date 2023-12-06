@@ -1,10 +1,10 @@
 package com.example.firstapp.Repository.Model;
 
 
-import com.example.firstapp.Entity.Model;
+import com.example.firstapp.Entity.Modeles;
 
 
 public interface ModelRepositoryCustom {
-    Model getModelByNom(String nom);
+    Modeles getModelByNom(String nom);
 
 }
